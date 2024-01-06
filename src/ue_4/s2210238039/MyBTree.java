@@ -29,6 +29,7 @@ public class MyBTree extends BTree {
                 queue.enqueue(current.left);
             } else {
                 current.left = newNode;
+                current.left.parent = current;
                 return;
             }
 
@@ -36,6 +37,7 @@ public class MyBTree extends BTree {
                 queue.enqueue(current.right);
             } else {
                 current.right = newNode;
+                current.right.parent = current;
                 return;
             }
         }
@@ -124,20 +126,6 @@ public class MyBTree extends BTree {
             }
         }
         return node;
-    }
-
-
-}
-
-class DataKey implements IKey {
-    Object data;
-
-    public DataKey(Object data) {
-        this.data = data;
-    }
-
-    public boolean matches(Object data) {
-        return this.data.equals(data);
     }
 }
 
