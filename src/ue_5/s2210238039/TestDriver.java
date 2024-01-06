@@ -2,6 +2,8 @@ package ue_5.s2210238039;
 import kapitel_3.vl.BTree;
 import kapitel_3.vl.IFIterator;
 
+import java.util.Arrays;
+
 public class TestDriver {
     public static void main(String[] args) {
 
@@ -43,6 +45,10 @@ public class TestDriver {
         while (myTreeIterator.hasNext()) {
             System.out.println(myTreeIterator.next().toString());
         }
+
+        // Aufgabe 5.3
+        System.out.println("####EXERCISE 5.3####");
+        System.out.println(Arrays.toString(ArrayUtil.convertTreeToArray(myTree)));
 
         // Aufgabe 5.2:
         System.out.println("####EXERCISE 5.2####");

@@ -2,6 +2,7 @@ package ue_5.s2210238039;
 
 import kapitel_3.vl.BTree;
 import kapitel_3.vl.IKey;
+import kapitel_3.vl.IWorker;
 import ue_4.s2210238039.DataKey;
 import ue_4.s2210238039.MyBTree;
 
@@ -62,7 +63,6 @@ public class MyHeap extends MyBTree {
     protected Node heapSearch(Node current, IKey key) {
         return depthFirstSearch(current, key);
     }
-
 }
 
 

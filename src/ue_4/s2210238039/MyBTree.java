@@ -9,6 +9,7 @@ import ue_3.s2210238039.TelephoneBookEntry;
 
 public class MyBTree extends BTree {
 
+
     public MyBTree(Node tree) {
         super();
         root = tree;
@@ -155,6 +156,10 @@ public class MyBTree extends BTree {
             }
         }
         return node;
+    }
+
+    public Node getRoot() {
+        return root;
     }
 }
 
