@@ -132,27 +132,28 @@ public class BTree {
         Node foundNode = breadthFirstSearch(root, key); // search process
         return foundNode != null ? foundNode.data : null;
     }
-    
+
     protected void removeLeaf(Node toRemove) { // Remove a leaf or a half-leave from the
-        if (toRemove.isLeftChild()) {
-            if (toRemove.right != null) {
+        if (toRemove.isLeftChild()) {          // tree. This algorithm has an error -
+            toRemove.parent.left = null;       // deliberately. The students have to search
+            if (toRemove.right != null) {      // for it and to discuss it.
                 toRemove.parent.left = toRemove.right;
                 toRemove.right.parent = toRemove.parent;
-            } else {
-                toRemove.parent.left = null;
+            } else if (toRemove.left != null) {
+                toRemove.parent.left = toRemove.left;
+                toRemove.left.parent = toRemove.parent;
             }
         } else if (toRemove.isRightChild()) {
+            toRemove.parent.right = null;
             if (toRemove.left != null) {
                 toRemove.parent.right = toRemove.left;
                 toRemove.left.parent = toRemove.parent;
-            } else {
-                toRemove.parent.right = null;
+            } else if (toRemove.right != null) {
+                toRemove.parent.right = toRemove.right;
+                toRemove.right.parent = toRemove.parent;
             }
         } else {
             root = toRemove.left != null ? toRemove.left : toRemove.right;
-            if (root != null) {
-                root.parent = null; // Update the parent pointer of the new root to null
-            }
         }
     }
 
