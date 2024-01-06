@@ -48,10 +48,17 @@ public class MyBTree extends BTree {
     }
 
     // Aufgabe 2:
+    // Beschreibung:
+    // Zuerst muss im Baum nach dem Datensatz mittels DataKey gesucht werden
+    // Der Knoten wird dann in die protected remove methode übergeben.
     public void remove(Object data) {
         remove(breadthFirstSearch(root, new DataKey(data)));
     }
 
+    // In der remove Methode wird dann zuerst der toRemove Knoten gesetzt.
+    // da wurde die switchNodes Methode aus der Vorlesung verwendet.
+    // Nachdem die Nodes getauscht wurden, muss über die Parentreferenz der Node gelöscht werden
+    // Anders war es mir nicht möglich. Aus diesem Grund ist is bei diesem Baum auch wichtig eine Parentreferenz zu haben!
     protected void remove(Node node) {
         if (node != null) {
             Node toRemove = switchNodes(node);
@@ -66,6 +73,12 @@ public class MyBTree extends BTree {
         }
     }
 
+    // Man muss isch entscheiden ob man den kleinsten Datensatz des rechten Sub-Baumes
+    // oder den größten Datensatz des linken Sub-Baumes löschen möchte
+    // in der Methode wird im Baum durchiteriert und danach ein replacementNode gesetzt
+    // mit exchangeDatasets werden !VORISCHT nur daten und nicht referenzen getauscht.
+    // falls ein replacement stattgefunden hat wird auch der replacementNode zurückgegeben
+    // sonst wird übergebene node wieder zurückgegeben, da es sich um ein Baumblatt handelt.
     protected Node switchNodes(Node toRemove) {
         Node replacementNode = null;
         if (toRemove != null) {
@@ -80,6 +93,23 @@ public class MyBTree extends BTree {
     }
 
     // Aufgabe 4.3:
+    // Prosa:
+    /*
+    removeLeaf wird aufgerugen und erhlt einen Knoten als Parameter. Zuerst wird überprüft, ob der
+    Knoten ein Blatt ist, wenn ja, wir der Knoten aus dem Baum entfernt. Falls es sich um ein Halbblatt handelt,
+    ein Knoten mit nur einem Child, wird der Knoten durch seinen einzigen Nachfolger ersetzt.
+    Der Algorithmus stellt sicher, dass die Verknüpfungen im Baum richtig aktualisiert werden um die Eigenschaften eines binären Baums zu erhalten.
+     */
+    /*
+    Stilisierte Prosa:
+    1. removeLeaf erhält Knoten als Eingabe
+    2. Es wird überprüft, ob der Knoten ein Blatt ist
+        1. Wenn ja, Knoten wird aus Baum entfernt
+        2. Falls es sich um ein Halbblatt handelt
+            1. Es wird ein Nachfolger des zu entfernenden Knotens ermittelt
+            2. Die Verbindung des parent Knotens wird zu dem des entfernenden Knotens auf den Nachfolger aktualisiert
+     */
+
     // Antwort: Der Code wurde um Zeile 103 erweitert.
     // Ohne der Zeile, hätte man noch immer eine Referenz zum Parent Node, falls der root node gelöscht werden sollte.
     // Was zu Memory Leaks oder unerwarteten Verhalten führen kann.
@@ -108,7 +138,6 @@ public class MyBTree extends BTree {
             root.parent = null;
         }
     }
-
 
     protected Node searchSmallest(Node node) {
         if (node != null) {
